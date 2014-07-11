@@ -1,7 +1,7 @@
 /***************************************************************************
- *                    ctfilter - CTA data selection tool                   *
+ *                    ctfilter - CTA cube filter tool                      *
  * ----------------------------------------------------------------------- *
- *  copyright (C) 2010-2013 by Juergen Knoedlseder                         *
+ *  copyright (C) 2014 by Chia-Chun Lu                                     *
  * ----------------------------------------------------------------------- *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
@@ -20,8 +20,8 @@
  ***************************************************************************/
 /**
  * @file ctfilter.hpp
- * @brief CTA data selection tool definition
- * @author Juergen Knoedlseder
+ * @brief CTA cube filter tool definition
+ * @author Chia-Chun Lu
  */
 
 #ifndef CTFILTER_HPP
