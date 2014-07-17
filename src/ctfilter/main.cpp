@@ -1,5 +1,5 @@
 /***************************************************************************
- *                          ctools - SWIG file                             *
+ *                ctselect - CTA data selection tool main code             *
  * ----------------------------------------------------------------------- *
  *  copyright (C) 2010-2013 by Juergen Knoedlseder                         *
  * ----------------------------------------------------------------------- *
@@ -17,38 +17,60 @@
  *  You should have received a copy of the GNU General Public License      *
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
  *                                                                         *
- * ----------------------------------------------------------------------- *
- * Usage:                                                                  *
- * swig -c++ -python -Wall ctools.i                                        *
  ***************************************************************************/
 /**
- * @file ctools.i
- * @brief ctools SWIG file
+ * @file ctfilter/main.cpp
+ * @brief CTA data selection tool main code
  * @author Juergen Knoedlseder
  */
-%module ctools
-%feature("autodoc", "1");
 
-/* __ Headers needed for compilation _____________________________________ */
-%{
-#include <stddef.h>
-%}
+/* __ Includes ___________________________________________________________ */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+#include <cstdio>
+#include "ctfilter.hpp"
 
-/* __ Include standard typemaps for vectors and strings __________________ */
-%include stl.i
 
-/* __ Make sure that exceptions are catched ______________________________ */
-%import(module="gammalib.support") "GException.i";
+/***********************************************************************//**
+ * @brief Main entry point
+ *
+ * @param[in] argc Number of arguments
+ * @param[in] argv Arguments
+ ***************************************************************************/
+int main (int argc, char *argv[])
+{
+    // Initialise return code
+    int rc = 1;
 
-/* __ Inform about base classes __________________________________________ */
-%import(module="gammalib.base") "GBase.i";
-%import(module="gammalib.app")  "GApplication.i";
+    // Create instance of application
+    ctfilter application(argc, argv);
 
-/* __ ctools _____________________________________________________________ */
-%include "ctbin.i"
-%include "ctobssim.i"
-%include "ctlike.i"
-%include "ctmodel.i"
-%include "ctselect.i"
-%include "ctskymap.i"
-%include "ctfilter.i"
+    // Run application
+    try {
+        // Execute application
+        application.execute();
+
+        // Signal success
+        rc = 0;
+    }
+    catch (std::exception &e) {
+
+        // Extract error message
+        std::string message = e.what();
+        std::string signal  = "*** ERROR encounterted in the execution of"
+                              " ctfilter. Run aborted ...";
+
+        // Write error in logger
+        application.log << message << std::endl;
+        application.log << signal  << std::endl;
+
+        // Write error on standard output
+        std::cout << message << std::endl;
+        std::cout << signal  << std::endl;
+
+    } // endcatch: catched any application error
+
+    // Return
+    return rc;
+}
