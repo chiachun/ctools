@@ -51,4 +51,4 @@
 %include "ctmodel.i"
 %include "ctselect.i"
 %include "ctskymap.i"
-%include "ctfilter.i"
+%include "ctcubemask.i"
