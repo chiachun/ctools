@@ -62,7 +62,7 @@ public:
     void           save(void);
     GObservations& obs(void) { return m_obs; }
     void           get_parameters(void);
-    void           apply_mask(GCTAObservation* obs, const std::string& filename);
+    void           apply_mask(GCTAObservation* obs);
 
 protected:
     // Protected methods
@@ -78,9 +78,9 @@ protected:
 
     // User parameters
     std::string m_infile;     //!< Input event list or XML file
-	std::string m_regfile;    //!< ds9 region file
+    std::string m_regfile;    //!< ds9 region file
     std::string m_outfile;    //!< Output event list or XML file
-	std::string m_prefix;     //!< Prefix for multiple counts maps
+    std::string m_prefix;     //!< Prefix for multiple counts maps
     bool        m_usepnt;     //!< Use pointing instead of RA/DEC parameters
     double      m_ra;         //!< RA of ROI centre
     double      m_dec;        //!< DEC of ROI centre

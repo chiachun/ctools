@@ -51,7 +51,7 @@ public:
     void           save(void);
     GObservations& obs(void) { return m_obs; }
     void           get_parameters(void);
-    void           apply_mask(GCTAObservation* obs, const std::string& filename);
+    void           apply_mask(GCTAObservation* obs);
 };
 
 
