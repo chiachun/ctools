@@ -530,11 +530,11 @@ void ctcubemask::apply_mask(GCTAObservation* obs)
     // but outside ROI or inside exlusion regions negative
 
     GSkyRegionCircle roi = GSkyRegionCircle(m_ra, m_dec, m_rad);
-    GSkyRegions regs = GSkyRegions();
+    GSkyRegions exl_regs = GSkyRegions();
 
     // Read exclusion definitions from a ds9 region file
     if (m_regfile!="NO"){
-    GSkyRegions regs = GSkyRegions(m_regfile);
+    exl_regs = GSkyRegions(m_regfile);
     }
     
     // Loop over energy bands of interest
@@ -545,7 +545,7 @@ void ctcubemask::apply_mask(GCTAObservation* obs)
 
             GSkyDir dir = map.inx2dir(pixel);
             if ( roi.contains(dir) == false || 
-		 regs.contains(dir) == true){
+		 exl_regs.contains(dir) == true){
 	       map(pixel,i) = -1;
 	    }
 
