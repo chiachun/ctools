@@ -409,7 +409,7 @@ void ctcubemask::get_parameters(void)
         try {
 
             // Load event list in CTA observation
-            obs.load_binned(m_infile);
+            obs.load(m_infile);
 
             // Append CTA observation to container
             m_obs.append(obs);
