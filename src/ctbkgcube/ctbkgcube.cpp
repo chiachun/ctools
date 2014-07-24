@@ -348,10 +348,20 @@ void ctbkgcube::run(void)
 
             // Fill the cube
             fill_cube(obs);
-
+	    	  
         } // endif: CTA observation found
 
     } // endfor: looped over observations
+
+    // Scale the cube by ontime to get the unit right
+    for (int i = 0; i < m_bkgcube.size(); ++i) {
+
+            // Get event bin
+            GCTAEventBin* bin = m_bkgcube[i];
+	    
+	    // Divide the content by ontime
+            bin->counts(bin->counts()/m_ontime);
+    }
 
     // Log results
     if (logTerse()) {
@@ -379,6 +389,9 @@ void ctbkgcube::fill_cube(GCTAObservation* obs)
         // Initialise statistics
         double sum = 0.0;
 
+	// Add ontime to total ontime
+        m_ontime = m_ontime + obs->ontime();
+
         // Set GTI of actual observations as the GTI of the event cube
         m_bkgcube.gti(obs->events()->gti());
 
@@ -391,7 +404,7 @@ void ctbkgcube::fill_cube(GCTAObservation* obs)
             // Compute model value for event bin
             double model = 
                    m_bkgmdl.eval(*(const_cast<const GCTAEventBin*>(bin)), *obs) *
-                   bin->size();
+	           bin->size();
 
             // Add existing number of counts
             model += bin->counts();

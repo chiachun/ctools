@@ -78,6 +78,7 @@ protected:
     GCTAEventCube m_bkgcube;     //!< Background cube
     GModels       m_bkgmdl;      //!< CTA background models
     GEbounds      m_ebounds;     //!< Energy boundaries
+    double        m_ontime;      //!< Total ontime
 };
 
 
