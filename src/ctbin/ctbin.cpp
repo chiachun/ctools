@@ -587,13 +587,15 @@ void ctbin::init_cube(void)
 
     } // endif: used pointing
 
+    // Set energy boundaries
+    get_ebounds();
+
     // Create skymap
     m_cube = GSkymap(m_proj, m_coordsys,
                      xref, yref, -m_binsz, m_binsz,
                      m_nxpix, m_nypix, m_enumbins);
 
-    // Set energy boundaries
-    get_ebounds();
+  
 
     // Return
     return;
@@ -802,6 +804,7 @@ void ctbin::get_ebounds(void)
 
     // Check whether energy binning information should be read from a FITS
     // file ...
+
     if (m_ebinalg == "FILE") {
 
         // Open energy boundary file using the EBOUNDS or ENERGYBINS
